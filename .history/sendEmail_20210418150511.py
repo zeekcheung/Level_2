@@ -21,19 +21,15 @@ password = input('邮件密码：')
 to_addr = input('收件人地址：')
 
 # 设置SMTP服务器及发件人名
-if mail_type == 'gmail':  # gmail
-    sender = from_addr[0:-10]
+if mail_type == 'gmail':            # gmail
     smtp_server = 'smtp.gmail.com'
     port = 465
-    server = smtplib.SMTP_SSL(smtp_server, port)
+    sender = from_addr[0:-10]
 
-elif mail_type == 'outlook':  # outlook
-    sender = from_addr[0:-11]
+elif mail_type == 'outlook':        # outlook
     smtp_server = 'smtp.partner.outlook.cn'
     port = 587
-    server = smtplib.SMTP(smtp_server, port)
-    server.ehlo()
-    server.starttls()
+    sender = from_addr[0:-11]
 
 else:
     print('不支持', mail_type, '邮箱')
@@ -55,6 +51,7 @@ print(msg['To'])
 msg['Subject'] = Header(subject, 'utf-8').encode()
 
 # 连接SMTP服务器,发送邮件
+server = smtplib.SMTP_SSL(smtp_server, port)
 server.set_debuglevel(1)  # 打印与SMTP服务器交互的信息
 server.login(from_addr, password)
 server.sendmail(from_addr, to_addr, msg.as_string())

@@ -31,7 +31,7 @@ elif mail_type == 'outlook':  # outlook
     sender = from_addr[0:-11]
     smtp_server = 'smtp.partner.outlook.cn'
     port = 587
-    server = smtplib.SMTP(smtp_server, port)
+    server = smtplib.SMTP_SSL(smtp_server, port)
     server.ehlo()
     server.starttls()
 
