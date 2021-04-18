@@ -1,5 +1,3 @@
-from gtts import gTTS
-
 unseen_msg = {}
 
 unseen_msg['nums'] = 3

@@ -107,7 +107,7 @@ def getEmail():
                 body = msg.get_payload(decode=True).decode()
 
                 if content_type == "text/plain":
-                    mail['Content'] = body
+                    mail['content'] = body
 
                 if content_type == "text/html":
                     folder_name = decode_str(Subject)

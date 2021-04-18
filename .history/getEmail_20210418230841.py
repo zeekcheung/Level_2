@@ -1,5 +1,4 @@
 # 通过 IMAP 收取邮件
-# -*- coding: utf-8 -*-
 
 import imaplib
 import email
@@ -107,7 +106,7 @@ def getEmail():
                 body = msg.get_payload(decode=True).decode()
 
                 if content_type == "text/plain":
-                    mail['Content'] = body
+                    mail['content'] = body
 
                 if content_type == "text/html":
                     folder_name = decode_str(Subject)

@@ -1,23 +1,10 @@
+# 将IMAP获取的邮件内容发送到gTTS合成
+# -*- coding: utf-8 -*-
+
+import getEmail
 from gtts import gTTS
 
-unseen_msg = {}
-
-unseen_msg['nums'] = 3
-
-email1 = {
-    'Subject': 'ELC4',
-    'From': '李贞',
-    'Attachment': 'file'
-}
-
-email2 = {
-    'Subject': 'SMTP',
-    'From': 'clementchueng',
-    'Content': 'zzz'
-}
-
-unseen_msg['email1'] = email1
-unseen_msg['email2'] = email2
+unseen_msg = getEmail.getEmail()
 
 words = '您现在共有' + str(unseen_msg['nums']) + '封未读邮件,'
 
@@ -27,10 +14,10 @@ if unseen_msg['nums'] > 0:
             words += unseen_msg[e]['From'] + '给你给来了一封主题为' + \
                 unseen_msg[e]['Subject'] + '的邮件,'
 
-            if 'Contant' in unseen_msg[e]:
+            if unseen_msg[e]['Content']:
                 words += '内容为,' + unseen_msg[e]['Content']
 
-            if 'Attachment' in unseen_msg[e]:
+            if unseen_msg[e]['Attachment']:
                 words += '还有一个附件,' + unseen_msg[e]['Attachment']
 
 tts = gTTS(words)

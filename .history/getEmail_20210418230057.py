@@ -1,5 +1,4 @@
 # 通过 IMAP 收取邮件
-# -*- coding: utf-8 -*-
 
 import imaplib
 import email
@@ -59,7 +58,7 @@ def getEmail():
     i = 1
 
     if unseen_msg_nums > 0:
-        email_list = list(data[0].split())
+        email_list = list(reversed(data[0].split()))
 
         for uid in email_list:
             status, content = imap.fetch(uid, '(RFC822)')
@@ -107,7 +106,7 @@ def getEmail():
                 body = msg.get_payload(decode=True).decode()
 
                 if content_type == "text/plain":
-                    mail['Content'] = body
+                    mail['content'] = body
 
                 if content_type == "text/html":
                     folder_name = decode_str(Subject)
@@ -118,7 +117,7 @@ def getEmail():
                     mail['Attachment'] = filename
                     filepath = os.path.join(folder_name, filename)
 
-                    open(filepath, "w").write(msg.get_payload(decode=True))
+                    open(filepath, "w").write(body)
 
             unseen_msg['email' + str(i)] = mail
             i += 1
