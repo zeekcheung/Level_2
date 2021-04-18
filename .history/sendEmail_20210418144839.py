@@ -20,25 +20,17 @@ from_addr = input('邮箱地址：')
 password = input('邮件密码：')
 to_addr = input('收件人地址：')
 
-# 设置SMTP服务器及发件人名
 if mail_type == 'gmail':            # gmail
     smtp_server = 'smtp.gmail.com'
     #port = 465
     sender = from_addr[0:-10]
-
 elif mail_type == 'outlook':        # outlook
     smtp_server = 'smtp.partner.outlook.cn'
     #port = 587
-    sender = from_addr[0:-11]
+    serder = to_addr[0:-11]
 
 else:
     print('不支持', mail_type, '邮箱')
-
-# 收件人名
-if to_addr[-9:-4] == 'gmail':
-    receiver = to_addr[0:-10]
-else:
-    receiver = to_addr[0:-11]
 
 # 文本邮件信息
 subject = input('邮件主题：')
@@ -46,8 +38,7 @@ content = input('邮件内容：')
 msg = MIMEText(content, 'plain', 'utf-8')
 msg['From'] = format_adds(sender + '<%s>' % from_addr)
 print(msg['From'])
-msg['To'] = format_adds(receiver + '<%s>' % to_addr)
-print(msg['To'])
+msg['To'] = format_adds(sender + '<%s>' % to_addr)
 msg['Subject'] = Header(subject, 'utf-8').encode()
 
 # 连接SMTP服务器,发送邮件

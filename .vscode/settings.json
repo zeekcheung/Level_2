@@ -1,5 +1,10 @@
 {
     "cSpell.words": [
-        "smtplib"
+        "imap",
+        "isalnum",
+        "msg",
+        "nums",
+        "smtplib",
+        "unseen"
     ]
 }

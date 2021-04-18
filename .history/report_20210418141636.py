@@ -3,13 +3,12 @@
 import getEmail
 from gtts import gTTS
 
-unseen_msg = getEmail.getEmail()
+unseen_msg = getEmail()
 
 words = '您现在共有' + unseen_msg['nums'] + '封未读邮件'
 
 for e in unseen_msg.keys():
-    words += unseen_msg[e]['From'] + '给你给来了一封主题为' + \
-        unseen_msg['Subject'] + '的邮件,内容为' + unseen_msg['Body']
+    words += unseen_msg[e]['From'] + '给你给来了一封主题为' + unseen_msg['Subject'] + '的邮件,内容为' + unseen_msg['Body'
 
-tts = gTTS(words)
+tts= gTTS(words)
 tts.save('email.mpe')

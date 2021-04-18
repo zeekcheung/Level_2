@@ -32,19 +32,14 @@ def getEmail():
     imap.select('INBOX')
 
     # 获取所有未读邮件
-    status, response = imap.uid('SEARCH', None, '(UNSEEN)')
+    status, response = imap.uid('SEARCH', None, '(UNSEEN')
     unseen_msg_nums = response[0].split()  # 统计未读邮件数量
-    unseen_msg = {}  # 存储所有未读邮件信息的字典
-    unseen_msg['nums'] = unseen_msg_nums
-    i = 1
 
     for e_id in unseen_msg_nums:
         # 通过uid匹配邮件
         res, msg = imap.uid('FETCH', e_id, '(UID BODY[TEXT])')
 
         for response in msg:
-            mail = {}
-
             if isinstance(response, tuple):
                 # 将邮件类型(bytes)转换为对象(object)
                 msg = email.message_from_bytes(response[1])
@@ -67,8 +62,8 @@ def getEmail():
                     if isinstance(From, bytes):
                         From = From.decode(encoding)
 
-                    mail['From'] = From
-                    mail['Subject'] = subject
+                    print('邮件主题：', subject)
+                    print('发件人：', From)
 
                     if msg.is_multipart():
                         for part in msg.walk():
@@ -85,9 +80,7 @@ def getEmail():
                             if content_type == 'text/plain' and 'attachment' not in content_disposition:
                                 # 如果邮件内容只有文本信息，则打印出来
                                 print(body)
-                                mail['Body'] = '一段文字,' + body
                             elif 'attachment' in content_disposition:
-                                mail['Body'] = '一个附件,请及时查收'
                                 # 下载并保存附件
                                 filename = part.get_filename()
                                 if filename:
@@ -110,10 +103,9 @@ def getEmail():
 
                         if content_type == 'text/plain':
                             print(body)
-                            mail['Body'] = '一段文字,' + body
+
                         if content_type == 'text/html':
                             folder_name = clean(subject)
-                            mail['Body'] = '一个html页面，请及时查收'
                         if not os.path.isdir(folder_name):
                             os.mkdir(folder_name)
 
@@ -123,12 +115,6 @@ def getEmail():
                             open(filepath, 'w').write(body)
                             # 打开默认浏览器
                             webbrowser.open(filepath)
-
-                print('=' * 100)
-                unseen_msg['email' + str(i)] = email
-            i += 1
-
-    # 关闭当前选择的邮箱。删除的邮件将可从邮箱中删除。相当于以前的logout()函数
+                    print('=' * 100)
+    # 关闭连接
     imap.logout()
-
-    return unseen_msg

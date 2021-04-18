@@ -35,7 +35,6 @@ def getEmail():
     status, response = imap.uid('SEARCH', None, '(UNSEEN)')
     unseen_msg_nums = response[0].split()  # 统计未读邮件数量
     unseen_msg = {}  # 存储所有未读邮件信息的字典
-    unseen_msg['nums'] = unseen_msg_nums
     i = 1
 
     for e_id in unseen_msg_nums:
@@ -131,4 +130,5 @@ def getEmail():
     # 关闭当前选择的邮箱。删除的邮件将可从邮箱中删除。相当于以前的logout()函数
     imap.logout()
 
-    return unseen_msg
+
+getEmail()

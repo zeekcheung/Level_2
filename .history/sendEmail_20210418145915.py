@@ -20,7 +20,6 @@ from_addr = input('邮箱地址：')
 password = input('邮件密码：')
 to_addr = input('收件人地址：')
 
-# 设置SMTP服务器及发件人名
 if mail_type == 'gmail':            # gmail
     smtp_server = 'smtp.gmail.com'
     #port = 465
@@ -34,7 +33,6 @@ elif mail_type == 'outlook':        # outlook
 else:
     print('不支持', mail_type, '邮箱')
 
-# 收件人名
 if to_addr[-9:-4] == 'gmail':
     receiver = to_addr[0:-10]
 else:

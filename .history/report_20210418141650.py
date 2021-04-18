@@ -3,7 +3,7 @@
 import getEmail
 from gtts import gTTS
 
-unseen_msg = getEmail.getEmail()
+unseen_msg = getEmail()
 
 words = '您现在共有' + unseen_msg['nums'] + '封未读邮件'
 
