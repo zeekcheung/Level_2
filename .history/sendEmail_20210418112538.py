@@ -31,18 +31,10 @@ msg['Subject'] = Header(subject, 'utf-8').encode()
 # 设置SMTP服务器
 if mail_type == 'gmail':            # gmail
     smtp_server = 'smtp.gmail.com'
-    port = 465
 elif mail_type == 'outlook':        # outlook
     smtp_server = 'smtp.partner.outlook.cn'
-    port = 587
 else:
     print('不支持', mail_type, '邮箱')
 
 # 连接SMTP服务器,发送邮件
-server = smtplib.SMTP_SSL(smtp_server, port)
-server.set_debuglevel(1)  # 打印与SMTP服务器交互的信息
-server.login(from_addr, password)
-server.sendmail(from_addr, to_addr, msg.as_string())
-
-# 关闭连接
-server.quit()
+server = smtplib.SMTP_SSL(smtp_server, 465)

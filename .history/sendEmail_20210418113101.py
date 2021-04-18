@@ -43,6 +43,4 @@ server = smtplib.SMTP_SSL(smtp_server, port)
 server.set_debuglevel(1)  # 打印与SMTP服务器交互的信息
 server.login(from_addr, password)
 server.sendmail(from_addr, to_addr, msg.as_string())
-
-# 关闭连接
-server.quit()
+server.quit()   # 关闭连接
