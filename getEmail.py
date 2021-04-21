@@ -1,11 +1,11 @@
 # 通过 IMAP 收取邮件
 # -*- coding: utf-8 -*-
 
+
 import imaplib
 import email
 from email.header import decode_header
 from email.parser import BytesParser
-from email.utils import parseaddr
 import os
 
 
@@ -15,12 +15,12 @@ def decode_str(s):
         s = email.header.decode_header(s)
     except:
         # print('Header decode error')
-        return None
+        return
 
     s_bytes = s[0][0]
     s_charset = s[0][1]
 
-    if s_charset == None:
+    if s_charset is None:
         s = s_bytes
     elif s_charset == 'unknown-8bit':
         s = str(s_bytes, 'utf8')
@@ -35,6 +35,7 @@ def getEmail():
     # mail_type = input('邮箱类型：')
     # username = input('邮箱地址：')
     # password = input('邮箱密码：')
+    imap_server = ''
     mail_type = 'outlook'
     username = '19zyzhang@stu.edu.cn'
     password = 'zz2001..'
@@ -54,8 +55,7 @@ def getEmail():
 
     status, data = imap.search(None, '(UNSEEN)')
     unseen_msg_nums = len(data[0].split())
-    unseen_msg = {}
-    unseen_msg['nums'] = unseen_msg_nums
+    unseen_msg = {'nums': unseen_msg_nums}
     i = 1
 
     if unseen_msg_nums > 0:
@@ -66,9 +66,7 @@ def getEmail():
             msg = BytesParser().parsebytes(content[0][1])
             Subject = decode_str(msg.get('Subject'))
             From = decode_str(msg.get('From'))
-            mail = {}
-            mail['Subject'] = Subject
-            mail['From'] = From
+            mail = {'Subject': Subject, 'From': From}
 
             if msg.is_multipart():
                 for part in msg.walk():
@@ -79,7 +77,7 @@ def getEmail():
                     try:
                         body = part.get_payload(decode=True).decode()
                     except:
-                        pass
+                        body = ''
 
                     if content_type == "text/plain" and "attachment" not in content_disposition:
                         # 如果邮件内容只有文本信息，则打印出来
