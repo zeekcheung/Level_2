@@ -93,7 +93,7 @@ def getEmail():
                             filepath = os.path.join(folder_name, filename)
 
                             # 下载附件并保存
-                            open(filepath, "wb").write(
+                            open(filepath, "wb+").write(
                                 part.get_payload(decode=True))
 
             else:
@@ -113,7 +113,7 @@ def getEmail():
                     mail['Attachment'] = filename
                     filepath = os.path.join(folder_name, filename)
 
-                    open(filepath, "w").write(msg.get_payload(decode=True))
+                    open(filepath, "wb+").write(msg.get_payload(decode=True))
 
             unseen_msg['email' + str(i)] = mail
             i += 1
