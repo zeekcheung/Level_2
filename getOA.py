@@ -17,7 +17,7 @@ soup = BeautifulSoup(index.content, 'html.parser')
 # print(type(soup))
 # print(soup.text)
 
-accept = ['书院总院', '校团委', '敬一书院', '党政办公室', '党委组织部']  # 筛选发布通知的单位
+accept = ['书院总院', '校团委', '敬一书院', '党政办公室', '党委组织部', '教务处']  # 筛选发布通知的单位
 today = datetime.date.today()  # 当日日期
 oneDay = datetime.timedelta(days=1)
 yesterday = str(today - oneDay)  # 前一天日期
