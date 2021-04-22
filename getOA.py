@@ -20,13 +20,13 @@ soup = BeautifulSoup(index.content, 'html.parser')
 accept = ['书院总院', '校团委', '敬一书院', '党政办公室', '党委组织部', '教务处']  # 筛选发布通知的单位
 today = datetime.date.today()  # 当日日期
 oneDay = datetime.timedelta(days=1)
-yesterday = str(today - oneDay)  # 前一天日期
+yesterday = today - oneDay  # 前一天日期
 data_block = soup.select('.datalight')  # 最新页面中的所有通知所在的元素
 
 for d in data_block:
 	# 筛选出最新邮件 筛选出发布通知的单位
 	date = d.contents[-2].string
-	if (date == today or date == yesterday) and d.contents[3].string in accept:
+	if (date == str(today) or date == str(yesterday)) and d.contents[3].string in accept:
 		# 获取每条通知标题、发布单位、链接
 		title = d.contents[1].contents[0]['title']  # 标题
 		organization = d.contents[3].string  # 发布单位
