@@ -32,13 +32,10 @@ def decode_str(s):
 
 def getEmail():
     # 邮箱信息
-    # mail_type = input('邮箱类型：')
-    # username = input('邮箱地址：')
-    # password = input('邮箱密码：')
+    mail_type = input('邮箱类型：')
+    username = input('邮箱地址：')
+    password = input('邮箱密码：')
     imap_server = ''
-    mail_type = 'outlook'
-    username = '19zyzhang@stu.edu.cn'
-    password = 'zz2001..'
 
     # 设置 IMAP 服务器
     if mail_type == 'gmail':        # gmail
