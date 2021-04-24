@@ -21,5 +21,5 @@ if unseen_msg['nums'] > 0:
             if 'Attachment' in unseen_msg[e]:
                 words += '还有一个附件,' + unseen_msg[e]['Attachment']
 
-tts = gTTS(words, lang='zh-TW')
+tts = gTTS(words,lang='zh-TW')
 tts.save('email.mp3')
