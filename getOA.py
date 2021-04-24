@@ -6,13 +6,12 @@ from bs4 import BeautifulSoup
 from sendEmail import sendEmail
 
 # 设置邮箱信息
-mail_type = input('邮箱类型')
-from_addr = input('发件邮箱')
-password = input('邮箱密码')
-to_addr = input('收件邮箱')
+mail_type = 'outlook'
+from_addr = '19zyzhang@stu.edu.cn'
+password = 'zz2001..'
+to_addr = '19zyzhang@stu.edu.cn'
 
-link = ''
-index = requests.get(link)
+index = requests.get('http://oa.stu.edu.cn/login/Login.jsp?logintype=1')
 soup = BeautifulSoup(index.content, 'html.parser')
 # print(type(soup))
 # print(soup.text)
@@ -24,20 +23,20 @@ yesterday = today - oneDay  # 前一天日期
 data_block = soup.select('.datalight')  # 最新页面中的所有通知所在的元素
 
 for d in data_block:
-	# 筛选出最新邮件 筛选出发布通知的单位
-	date = d.contents[-2].string
-	if (date == str(today) or date == str(yesterday)) and d.contents[3].string in accept:
-		# 获取每条通知标题、发布单位、链接
-		title = d.contents[1].contents[0]['title']  # 标题
-		organization = d.contents[3].string  # 发布单位
-		subject = organization + title
-		link = 'http://oa.stu.edu.cn' + d.contents[1].contents[0]['href']  # 链接
-		# print(link)
+    # 筛选出最新邮件 筛选出发布通知的单位
+    date = d.contents[-2].string
+    if (date == str(today) or date == str(yesterday)) and d.contents[3].string in accept:
+        # 获取每条通知标题、发布单位、链接
+        title = d.contents[1].contents[0]['title']  # 标题
+        organization = d.contents[3].string  # 发布单位
+        subject = organization + title
+        link = 'http://oa.stu.edu.cn' + d.contents[1].contents[0]['href']  # 链接
+        # print(link)
 
-		# 获取每条通知的页面
-		index = requests.get(link)
-		html = BeautifulSoup(index.content, 'html.parser')
-		print(soup)
+        # 获取每条通知的页面
+        index = requests.get(link)
+        html = BeautifulSoup(index.content, 'html.parser')
+        print(soup)
 
-		# 发送邮件
-		sendEmail(mail_type, from_addr, password, to_addr, subject, html)
+        # 发送邮件
+        sendEmail(mail_type, from_addr, password, to_addr, subject, html)
