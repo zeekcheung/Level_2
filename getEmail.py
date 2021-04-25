@@ -75,7 +75,7 @@ def getEmail():
 
                     # 获取邮件内容
                     try:
-                        body = part.get_payload(decode=True).decode()
+                        body = part.get_payload(decode=True)
                     except:
                         body = ''
 
@@ -102,7 +102,7 @@ def getEmail():
             else:
                 content_type = msg.get_content_type()
 
-                body = msg.get_payload(decode=True).decode()
+                body = msg.get_payload(decode=True)
 
                 if content_type == "text/plain":
                     mail['Content'] = body
@@ -125,3 +125,6 @@ def getEmail():
             print('From：', From)
 
     return unseen_msg
+
+if __name__ == '__main__':
+    getEmail()
