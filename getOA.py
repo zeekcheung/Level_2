@@ -6,10 +6,10 @@ from bs4 import BeautifulSoup
 from sendEmail import sendEmail
 
 # 设置邮箱信息
-mail_type = 'outlook'
-from_addr = '19zyzhang@stu.edu.cn'
-password = 'zz2001..'
-to_addr = '19zyzhang@stu.edu.cn'
+mail_type = input('输入邮箱类型：')
+from_addr = input('输入发件邮箱：')
+password = input('输入邮箱密码：')
+to_addr = input('输入收件邮箱：')
 
 index = requests.get('http://oa.stu.edu.cn/login/Login.jsp?logintype=1')
 soup = BeautifulSoup(index.text, 'html.parser')
